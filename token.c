@@ -162,7 +162,63 @@ t_token *ft_read_line(char *line, t_token **list)
 	}
 	return (*list);
 }
+int	ft_check_quote(char *list)
+{
+	char *temp;
 
+	temp = list;
+	while(*temp)
+	{
+		while (*temp != "\"" && *temp != '\'')
+			temp++;
+		if (temp == "\"")
+		{
+			while (*temp && *temp != "\"")
+				temp++;
+			if (*temp !=  "\"")
+				return (1);
+		}
+		if (temp == "\'")
+		{
+			while (*temp && *temp != "\'")
+				temp++;
+			if (*temp !=  "\'")
+				return (1);
+		}
+return (0)
+}
+
+#include <stdbool.h>
+
+int ft_check_quote(char *list)
+{
+    char *temp = list;
+    bool single_quote = false;
+    bool double_quote = false;
+
+    while (*temp)
+    {
+        // Check for single quotes
+        if (*temp == '\'')
+        {
+            single_quote = !single_quote;  // Toggle the state of single_quote
+        }
+        // Check for double quotes
+        else if (*temp == '\"')
+        {
+            double_quote = !double_quote;   // Toggle the state of double_quote
+        }
+        temp++; // Move to the next character
+    }
+
+    // If either single or double quotes are still open, return 1 (error)
+    if (single_quote || double_quote)
+        return 1;
+
+    return 0; // Quotes are balanced
+}
+
+	
 int	main()
 {
 	char *line;
@@ -173,6 +229,8 @@ int	main()
 		return 1;
 	}*/
 	line = "Hello world | you are >>the best < merci";
+	if (ft_check_quote)
+		return ...;
 	ft_read_line(line, &list);
 	t_token *current = list; // Временный указатель для итерации
 	while (current) {
